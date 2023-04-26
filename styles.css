@@ -1,0 +1,29 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    border: solid 5px;
+    
+    border-color: rgb(0, 0, 0);
+    
+}
+
+.outterDivs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    background-color: antiquewhite;
+}
+
+.innerDiv {
+    border: solid 1px;
+    border-color: rgb(155, 155, 155);
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+}
