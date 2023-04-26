@@ -6,9 +6,7 @@
     width: fit-content;
     height: fit-content;
     border: solid 5px;
-    
     border-color: rgb(0, 0, 0);
-    
 }
 
 .outterDivs {
@@ -26,4 +24,12 @@
     width: 30px;
     height: 30px;
     background-color: blue;
+}
+
+.grid-button {
+    font-size: 22px;
+    font-weight: 600;
+    background-color: black;
+    color: rgb(155, 155, 155);
+    border: none;
 }

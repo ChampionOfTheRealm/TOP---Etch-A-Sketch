@@ -4,21 +4,20 @@ const div = document.createElement('div');
 const button = document.createElement('button');
 
 const buttonContainer = body.appendChild(div);
-buttonContainer.classList.add('button-container')
+buttonContainer.classList.add('button-container');
+const gridContainer = body.insertAdjacentElement('afterend', div);
+gridContainer.classList.add('grid-container');
+
+//buttonContainer.classList.add('button-container')
 const gridButton = buttonContainer.appendChild(button);
 gridButton.classList.add('grid-button');
+gridButton.innerText = "Grid Size";
 
 
 //get user input a create a X * X sized table
 function createTable(gridSize = prompt("How large would you like the grid to be?")) {
-    
-    const table = document.createElement('table');
-    const tableRow = document.createElement('tr');
-    const tableDate = document.createElement('td');
 
-    const gridContainer = buttonContainer.insertAdjacentElement("afterend", div);
-22
-    //divContainer.classList.add("container");
+    
     
     for (j = 0; j < gridSize; j++) {
         const outterDivs = document.createElement('div');
