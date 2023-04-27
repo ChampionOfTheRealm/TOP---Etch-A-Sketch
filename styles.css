@@ -1,35 +1,86 @@
+.title-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .grid-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    height: fit-content;
     border: solid 5px;
     border-color: rgb(0, 0, 0);
+    width: 700px;
+    height: 700px;
 }
 
 .outterDivs {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: fit-content;
-    height: fit-content;
     background-color: antiquewhite;
+    height: 100%;
+    width: 100%;
+
 }
 
 .innerDiv {
     border: solid 1px;
     border-color: rgb(155, 155, 155);
-    width: 30px;
-    height: 30px;
     background-color: blue;
+    height: 100%;
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
 }
 
 .grid-button {
-    font-size: 22px;
-    font-weight: 600;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
     background-color: black;
-    color: rgb(155, 155, 155);
     border: none;
+    padding: 10px 20px;
+    width: 200px;
+}
+
+#grid-size-button:hover {
+    background-color: rgb(39, 39, 39);
+}
+
+@keyframes example {
+    0% {background-color: red;}
+    12% {background-color: rgb(255, 174, 0);}
+    25% {background-color: yellow;}
+    50% {background-color: green;}
+    75% {background-color: blue;}
+    87% {background-color: rgb(81, 0, 128);}
+    90% {background-color: rgb(128, 0, 53);}
+    100% {background-color: rgb(255, 0, 0);}
+  }
+
+#random-color-button[value="off"]:hover {
+    animation-name: example;
+    animation-duration: 20s;
+    animation-iteration-count: 1;
+}
+
+#random-color-button[value="on"] {
+    animation-name: example;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+#random-color-button[value="on"]:hover {
+    animation: none;
+    background-color: black;
 }
