@@ -1,7 +1,21 @@
+body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: black;
+
+}
+
 .title-grid-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
+}
+
+h3 {
+    color: white;
+    font-size: 40px;
 }
 
 .container {
@@ -14,10 +28,46 @@
     display: flex;
     flex-direction: column;
     border: solid 5px;
-    border-color: rgb(0, 0, 0);
+    border-color: rgb(155, 155, 155);
     width: 700px;
     height: 700px;
+    
 }
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+}
+
+.playgame-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 10px;
+    border-color: rgb(0, 0, 0);
+    width: 500px;
+    height: 500px;
+    font-size: 12px;
+}
+
+.outterDivs2 {
+    display: flex;
+    background-color: antiquewhite;
+    height: 100%;
+    width: 100%;
+}
+
+.innerDiv2 {
+    border: solid 1px;
+    border-color: rgb(155, 155, 155);
+    height: 100%;
+    width: 100%;
+}
+
 
 .outterDivs {
     display: flex;
@@ -32,10 +82,10 @@
 .innerDiv {
     border: solid 1px;
     border-color: rgb(155, 155, 155);
-    background-color: blue;
     height: 100%;
     width: 100%;
 }
+
 
 .buttons {
     display: flex;
@@ -51,10 +101,14 @@
     border: none;
     padding: 10px 20px;
     width: 200px;
+    height: 80px;
+    border: solid;
 }
 
-#grid-size-button:hover {
-    background-color: rgb(39, 39, 39);
+.grid-button:hover {
+    background-color: white;
+    color: black;
+    border-color: black;
 }
 
 @keyframes example {
@@ -68,19 +122,10 @@
     100% {background-color: rgb(255, 0, 0);}
   }
 
-#random-color-button[value="off"]:hover {
-    animation-name: example;
-    animation-duration: 20s;
-    animation-iteration-count: 1;
-}
-
 #random-color-button[value="on"] {
     animation-name: example;
     animation-duration: 20s;
     animation-iteration-count: infinite;
-}
-
-#random-color-button[value="on"]:hover {
-    animation: none;
-    background-color: black;
+    color: black;
+    border-color: black;
 }
