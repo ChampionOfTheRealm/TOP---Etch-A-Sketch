@@ -23,12 +23,19 @@ const playgameContainer = document.querySelector('.playgame-container')
 const playgameButton = document.querySelector('#game');
 playgameButton.addEventListener('click', playgame);
 
+const submitButton = document.querySelector('#submit');
+submitButton.addEventListener('click', submit);
+
 let currentMode = "";
 let gridSize = 16;
+let gameState = false;
+let playerArray = [];
+let gamePoints = 0;
+let gameArray = [];
 
 //get user input a create a X * X sized table
 function createTable(gridSize) {
-    
+    playerArray = [];
     for (j = 0; j < gridSize; j++) {
         const outterDivs = document.createElement('div');
         gridContainer.appendChild(outterDivs);
@@ -38,6 +45,9 @@ function createTable(gridSize) {
             outterDivs.appendChild(innerDiv);
             innerDiv.classList.add("innerDiv");
             innerDiv.style.backgroundColor = 'white';
+            innerDiv.value = `${j},${i}`;
+            //playerArray.push(`${j},${i}`);
+
         }
     }
     const innerDivs = document.querySelectorAll(".innerDiv");
@@ -66,6 +76,7 @@ function randomColor (e) {
         divSelected.style.backgroundColor = result;
     } else {
         divSelected.style.backgroundColor = `rgb(${randomRed},${randomGreen},${randomBlue})`;
+        gameTracker(e);
     }
 }
 
@@ -73,11 +84,9 @@ function randomColor (e) {
 function changeColor(e) {
     let divSelected = e.target;
     let divSelectedColor = e.target.style.backgroundColor;
-    if (divSelectedColor != 'white') {
-        divSelected.style.backgroundColor = 'white';
-    } else if (divSelectedColor != 'black') {
         divSelected.style.backgroundColor = 'black';
-    } 
+        gameTracker(e);
+    
 }
 
 function userInputGridSize (e) {
@@ -176,13 +185,11 @@ function eraser (e) {
 function clearGrid () {
     const innerDiv = document.querySelectorAll(".innerDiv")
     innerDiv.forEach(div => div.style.backgroundColor = "white");
+    playerArray = [];
 }
 
 function playgame() {
     playgameContainer.innerHTML = "";
-    let gameArray = [];
-
-    
 
     for (j = 0; j < gridSize; j++) {
         const outterDivs = document.createElement('div');
@@ -192,14 +199,14 @@ function playgame() {
             const innerDiv2 = document.createElement('div');
             outterDivs.appendChild(innerDiv2);
             innerDiv2.classList.add(`innerDiv2`);
-            innerDiv2.value = `${j},${i}`
+            innerDiv2.value = `${j},${i}`;
+            
             //innerDiv.setAttribute
-            innerDiv2.innerText = `${j},${i}`
+            innerDiv2.innerText = `${j},${i}`;
             innerDiv2.style.backgroundColor = 'white';
-            gameArray.push(`${j}${i}`);
         }
     }
-    const innerDivs = document.querySelectorAll(".innerDiv2");
+    const innerDivs2 = document.querySelectorAll(".innerDiv2");
     let divSelectorA = 0;
     let divSelectorB = 0;
     let randomSelector = 0;
@@ -210,12 +217,52 @@ function playgame() {
         } else if (randomSelector == 2) {
             divSelectorB += 1;
         }
-        innerDivs.forEach (div => {
-            if (div.value == `${divSelectorA},${divSelectorB}`) {
+        innerDivs2.forEach (div => {
+            let targetValue = div.value;
+            if (targetValue == `${divSelectorA},${divSelectorB}`) {
                 div.style.backgroundColor = "black";
+                gameArray.push(targetValue);
             }
         });
     }
+    clearGrid();
+    gameState = true;
+    playerArray = [];
+    return gameArray;
+}
+
+function gameTracker(e) {
+    if (gameState) {
+        let target = e.target.value;
+        playerArray.push(target);
+    }
+}
+
+function submit() {
+let final = 0;
+let jon = 0;
+    for (i = 0; i < gameArray.length; i++) {
+        for (j = 0; j < playerArray.length; j++) {
+            if (gameArray[i] == playerArray[j]) {
+                let gameDiv = document.querySelector(`[value="${playerArray[j]}"]`);
+                console.log(gameDiv);
+                gameDiv.style.backgroundColor = 'green';
+                gamePoints++;
+                gameArray.shift();
+                playerArray.shift();
+                i--;
+                j--;
+            } else if (gameArray[i] !== playerArray[j]) {
+                console.log(`wrong answer${jon}`);
+                jon++
+            }
+        }
+    }
+    final = gamePoints - playerArray.length;
+    console.log(gamePoints);
+    console.log(final);
+    console.log(playerArray.length);
+    playerArray = [];
 }
 
 userInputGridSize();
