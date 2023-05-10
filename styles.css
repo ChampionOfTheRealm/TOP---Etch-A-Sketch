@@ -21,13 +21,11 @@ h3 {
 text {
     color: white;
     font-size: 16px;
-    
 }
 
 .container {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    align-items:center;
 }
 
 .grid-container {
@@ -36,8 +34,7 @@ text {
     border: solid 5px;
     border-color: rgb(155, 155, 155);
     width: 700px;
-    height: 700px;
-    
+    height: 700px; 
 }
 
 .game-container {
@@ -51,6 +48,7 @@ text {
 
 .playgame-container {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
     border: solid 10px;
@@ -60,6 +58,18 @@ text {
     font-size: 7px;
     border: solid;
     border-color: rgb(155, 155, 155);
+}
+
+#score-level {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    font-weight: 600;
+    
+}
+
+#level, #score {
+    font-size: 24px;
 }
 
 .outterDivs2 {

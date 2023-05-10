@@ -4,6 +4,8 @@ const div = document.createElement('div');
 const button = document.createElement('button');
 const titleGridContainer = document.querySelector('.title-grid-container');
 
+const gameTitle = document.querySelector('.game-title');
+
 const gridContainer = titleGridContainer.appendChild(div);
 gridContainer.classList.add('grid-container');
 
@@ -25,6 +27,8 @@ playgameButton.addEventListener('click', playgame);
 
 const submitButton = document.querySelector('#submit');
 submitButton.addEventListener('click', submit);
+
+const score = document.querySelector('#score');
 
 let currentMode = "";
 let gridSize = 16;
@@ -86,11 +90,9 @@ function changeColor(e) {
     let divSelectedColor = e.target.style.backgroundColor;
         divSelected.style.backgroundColor = 'black';
         gameTracker(e);
-    
 }
 
 function userInputGridSize (e) {
-
     if (e) {
         gridContainer.innerHTML = "";
         gridSize = prompt("How large would you like the grid to be?");
@@ -107,6 +109,7 @@ function userInputGridSize (e) {
 function randomColorToggle (e) {
     let randomColorButtonToggle = e.target;
     const innerDivs = document.querySelectorAll(".innerDiv");
+
     if (randomColorButtonToggle.value == "off") {
         randomColorButtonToggle.removeAttribute('value');
         randomColorButtonToggle.value = "on";
@@ -115,7 +118,6 @@ function randomColorToggle (e) {
         randomColorButtonToggle.removeAttribute('value');
         randomColorButtonToggle.value = "off";
         randomColorButtonToggle.innerText = "Select Random Color Mode";
-
     }
 
     if (currentMode == "randomColor") {
@@ -143,6 +145,7 @@ function randomColorToggle (e) {
 function eraserToggle (e) {
     let target = e.target;
     const innerDivs = document.querySelectorAll(".innerDiv");
+
     if (target.value == "off") {
         target.removeAttribute('value');
         target.value = "on";
@@ -206,16 +209,52 @@ function playgame() {
             innerDiv2.style.backgroundColor = 'white';
         }
     }
+    //const innerDivs2 = document.querySelectorAll(".innerDiv2");
+    //let divSelectorA = 0;
+    //let divSelectorB = 0;
+    //let randomSelector = 0;
+    //while(divSelectorA <= gridSize-1 || divSelectorB <= gridSize-1){
+    //    randomSelector = Math.ceil(Math.random() * 2);
+    //    if (randomSelector == 1) {
+    //        divSelectorA += 1;
+    //    } else if (randomSelector == 2) {
+    //        divSelectorB += 1;
+    //    }
+    //    innerDivs2.forEach (div => {
+    //        let targetValue = div.value;
+    //        if (targetValue == `${divSelectorA},${divSelectorB}`) {
+    //            div.style.backgroundColor = "black";
+    //            gameArray.push(targetValue);
+    //        }
+    //    });
+    //}
+    drawGame();
+    clearGrid();
+    gameState = true;
+    playerArray = [];
+    return gameArray;
+}
+
+function drawGame () {
     const innerDivs2 = document.querySelectorAll(".innerDiv2");
-    let divSelectorA = 0;
+    let divSelectorA = Math.floor(Math.random() * gridSize);
     let divSelectorB = 0;
     let randomSelector = 0;
+    let randomTurn = 0;
     while(divSelectorA <= gridSize-1 || divSelectorB <= gridSize-1){
-        randomSelector = Math.ceil(Math.random() * 2);
-        if (randomSelector == 1) {
-            divSelectorA += 1;
-        } else if (randomSelector == 2) {
-            divSelectorB += 1;
+        randomSelector = Math.floor(Math.random() * gridSize);
+        randomTurn = Math.floor(Math.random() * gridSize);
+        
+        if (randomSelector !== randomTurn ) {
+            divSelectorA++;
+            if (divSelectorA == gridSize - 1) {
+                divSelectorA = 0;
+                divSelectorB++;
+            }
+            console.log(divSelectorA + "A");
+        } else {
+            divSelectorB++;
+            console.log(divSelectorB + "B");
         }
         innerDivs2.forEach (div => {
             let targetValue = div.value;
@@ -225,17 +264,25 @@ function playgame() {
             }
         });
     }
-    clearGrid();
-    gameState = true;
-    playerArray = [];
-    return gameArray;
 }
 
 function gameTracker(e) {
     if (gameState) {
         let target = e.target.value;
-        playerArray.push(target);
+        if (playerArray.length < 1) {
+                playerArray.push(target);
+            } else {
+                for (i = 0; i < playerArray.length; i++) {
+                    if (playerArray[i] == target) {
+                        return;
+                    }
+            }
+            playerArray.push(target);
+        }
+        console.log(playerArray + "playerArray");
+        console.log(gameState);
     }
+    
 }
 
 function submit() {
@@ -244,9 +291,9 @@ let jon = 0;
     for (i = 0; i < gameArray.length; i++) {
         for (j = 0; j < playerArray.length; j++) {
             if (gameArray[i] == playerArray[j]) {
-                let gameDiv = document.querySelector(`[value="${playerArray[j]}"]`);
-                console.log(gameDiv);
-                gameDiv.style.backgroundColor = 'green';
+                //let gameDiv = document.querySelector(`[value="${playerArray[j]}"]`);
+                //console.log(gameDiv);
+                //gameDiv.style.backgroundColor = 'green';
                 gamePoints++;
                 gameArray.shift();
                 playerArray.shift();
@@ -258,11 +305,14 @@ let jon = 0;
             }
         }
     }
-    final = gamePoints - playerArray.length;
+    final = gamePoints - (playerArray.length + gameArray.length);
     console.log(gamePoints);
     console.log(final);
     console.log(playerArray.length);
+    console.log(gameArray.length);
+    score.innerText = "Score: " + final;
     playerArray = [];
+    gameState = false;
 }
 
 userInputGridSize();
